@@ -9,6 +9,8 @@ struct LiteralCodeGen {
         String operator()(const String&);
 };
 
+String literal_codegen(const ConstLiteral&);
+
 struct CodeGen {
         String operator()(const None&);
         String operator()(const ConstLiteral&);
@@ -16,4 +18,6 @@ struct CodeGen {
         String operator()(const UnaryExpr&);
         String operator()(const BinaryExpr&);
 };
+
+String expr_codegen(const Expr&);
 

@@ -3,6 +3,7 @@
 #include <cstdint>
 
 #include <string>
+#include <variant>
 
 #include <enums.hh>
 #include <exprs.hh>
@@ -20,6 +21,11 @@ String LiteralCodeGen::operator()(double f64)
 
 String LiteralCodeGen::operator()(const String &str)
 {
-        return str;
+        return "\"" + str + "\"";
+}
+
+String literal_codegen(const ConstLiteral &lit)
+{
+        return std::visit(LiteralCodeGen{}, lit);
 }
 

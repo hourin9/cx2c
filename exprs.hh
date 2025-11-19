@@ -6,28 +6,43 @@
 #include <string>
 #include <variant>
 
+#include <enums.hh>
+#include <shorthands.hh>
+
 struct Expr;
 
 struct SourceInfo {
 };
 
-using ConstLiteral = std::variant<int64_t, double, std::string>;
+using ConstLiteral = std::variant<int64_t, double, String>;
 
 struct Identifier {
-        std::string name;
+        String name;
 };
 
 struct AssignExpr {
         Identifier tgt;
-        std::unique_ptr<Expr> expr;
+        Box<Expr> expr;
+};
+
+struct UnaryExpr {
+        UnaryOperations op;
+        Box<Expr> expr;
+};
+
+struct BinaryExpr {
+        BinaryOperations op;
+        Box<Expr> lhs, rhs;
 };
 
 struct Expr {
         SourceInfo inf;
         std::variant
-                < std::monostate
+                < None
                 , ConstLiteral
                 , AssignExpr
+                , UnaryExpr
+                , BinaryExpr
                 > v;
 };
 

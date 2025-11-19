@@ -35,14 +35,20 @@ struct BinaryExpr {
         Box<Expr> lhs, rhs;
 };
 
+using Variant = std::variant
+        < None
+        , ConstLiteral
+        , AssignExpr
+        , UnaryExpr
+        , BinaryExpr
+        >;
+
 struct Expr {
+        Expr() = default;
+        Expr(Variant v) : inf({}), v(std::move(v)) {}
+        Expr(SourceInfo inf, Variant v) : inf(inf), v(std::move(v)) {}
+
         SourceInfo inf;
-        std::variant
-                < None
-                , ConstLiteral
-                , AssignExpr
-                , UnaryExpr
-                , BinaryExpr
-                > v;
+        Variant v;
 };
 

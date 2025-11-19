@@ -2,8 +2,11 @@
 
 #include <cstdint>
 
-#include <variant>
+#include <memory>
 #include <string>
+#include <variant>
+
+struct Expr;
 
 struct SourceInfo {
 };
@@ -14,11 +17,17 @@ struct Identifier {
         std::string name;
 };
 
+struct AssignExpr {
+        Identifier tgt;
+        std::unique_ptr<Expr> expr;
+};
+
 struct Expr {
         SourceInfo inf;
         std::variant
                 < std::monostate
                 , ConstLiteral
+                , AssignExpr
                 > v;
 };
 

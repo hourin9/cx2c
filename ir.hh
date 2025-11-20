@@ -53,3 +53,10 @@ struct CFunc {
         CBlock body;
 };
 
+struct CCodeGenResult {
+        // This might grow, so I figure I should put this in
+        // a struct for later.
+        CExpr expr;     // For things like ConstLiteral
+        Vec<CStmt> stmts;
+};
+

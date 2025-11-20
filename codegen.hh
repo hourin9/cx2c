@@ -1,6 +1,7 @@
 #include <cstdint>
 
 #include <exprs.hh>
+#include <ir.hh>
 #include <shorthands.hh>
 
 struct LiteralCodeGen {
@@ -12,12 +13,12 @@ struct LiteralCodeGen {
 String literal_codegen(const ConstLiteral&);
 
 struct CodeGen {
-        String operator()(const None&);
-        String operator()(const ConstLiteral&);
-        String operator()(const AssignExpr&);
-        String operator()(const UnaryExpr&);
-        String operator()(const BinaryExpr&);
+        CCodeGenResult operator()(const None&);
+        CCodeGenResult operator()(const ConstLiteral&);
+        CCodeGenResult operator()(const AssignExpr&);
+        CCodeGenResult operator()(const UnaryExpr&);
+        CCodeGenResult operator()(const BinaryExpr&);
 };
 
-String expr_codegen(const Expr&);
+CCodeGenResult expr_codegen(const Expr&);
 

@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <exprs.hh>
 #include <codegen.hh>
 
@@ -12,8 +10,7 @@ int main(void)
                 )
         );
 
-        String code = expr_codegen(expr);
-        std::cout << code << "\n";
+        CCodeGenResult res = expr_codegen(expr);
 
         return 0;
 }

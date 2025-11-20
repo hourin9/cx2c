@@ -1,10 +1,14 @@
 #pragma once
 
+#include <shorthands.hh>
+
 enum class UnaryOperations {
         Not,
         Deref,
         Ref,
 };
+
+String unary_to_string(UnaryOperations);
 
 enum class BinaryOperations {
         Add,
@@ -19,4 +23,6 @@ enum class BinaryOperations {
         Le, LesserThan = Le,
         Lee, LesserOrEqual = Lee,
 };
+
+String binary_to_string(BinaryOperations);
 

@@ -28,14 +28,20 @@ CCodeGenResult CodeGen::operator()(const AssignExpr &expr)
 
 CCodeGenResult CodeGen::operator()(const UnaryExpr &expr)
 {
-        (void)expr;
-        return {};
+        CCodeGenResult val = expr_codegen(*expr.expr);
+        CExpr cexpr = unary_to_string(expr.op) + val.expr;
+        return {cexpr, val.stmts};
 }
 
 CCodeGenResult CodeGen::operator()(const BinaryExpr &expr)
 {
-        (void)expr;
-        return {};
+        CCodeGenResult lhs = expr_codegen(*expr.lhs);
+        CCodeGenResult rhs = expr_codegen(*expr.rhs);
+        CExpr cexpr = "(" + lhs.expr + binary_to_string(expr.op)
+                + rhs.expr + ")";
+        Vec<CStmt> stmts = lhs.stmts;
+        stmts.insert(stmts.end(), rhs.stmts.begin(), rhs.stmts.end());
+        return {cexpr, stmts};
 }
 
 CCodeGenResult expr_codegen(const Expr &expr)
